@@ -196,6 +196,6 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL c/COURSE_OF_STUDY y/YEAR ` <br> e.g., `add n/Snowball p/87098312 e/snowball@example.com c/Computer Science y/2`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete INDEX`<br> e.g., `delete 2`
 **List** | `list`
 **Help** | `help`
