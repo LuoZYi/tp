@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUR;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -38,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TELEGRAM,
-                        PREFIX_TAG, PREFIX_MOD, PREFIX_FROM, PREFIX_TO);
+                        PREFIX_TAG, PREFIX_MOD, PREFIX_FROM, PREFIX_TO, PREFIX_HOUR);
 
         Index index;
 
@@ -48,7 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TELEGRAM);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TELEGRAM, PREFIX_HOUR);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -72,6 +73,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         Set<Mod> mods = parseModsForEdit(argMultimap.getAllValues(PREFIX_MOD)).orElse(null);
         editPersonDescriptor.setMods(mods);
+
+        if (argMultimap.getValue(PREFIX_HOUR).isPresent()) {
+            editPersonDescriptor.setHour(ParserUtil.parseHour(argMultimap.getValue(PREFIX_HOUR).get()));
+        }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

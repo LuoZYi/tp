@@ -19,6 +19,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Hour;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_TELEGRAM = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_HOUR = "303539";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_HOUR = "24";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -193,4 +196,29 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseHour_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseHour(null));
+    }
+
+    @Test
+    public void parseHour_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseHour(INVALID_HOUR));
+    }
+
+    @Test
+    public void parseHour_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        Hour expectedHour = new Hour(VALID_HOUR);
+        assertEquals(expectedHour, ParserUtil.parseHour(VALID_HOUR));
+    }
+
+    @Test
+    public void parseHour_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String hourWithWhitespace = WHITESPACE + VALID_HOUR + WHITESPACE;
+        Hour expectedHour = new Hour(VALID_HOUR);
+        assertEquals(expectedHour, ParserUtil.parseHour(hourWithWhitespace));
+    }
+
+
 }

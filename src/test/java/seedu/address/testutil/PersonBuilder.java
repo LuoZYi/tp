@@ -13,6 +13,7 @@ import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Mod;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.person.Hour;
 
 /**
  * A utility class to help with building Person objects.
@@ -23,6 +24,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_TELEGRAM = "@amybee";
+    public static final String DEFAULT_HOUR = "0";
     private Name name;
     private Phone phone;
     private Email email;
@@ -30,6 +32,7 @@ public class PersonBuilder {
     private Set<Tag> tags;
     private FreeTime freeTime;
     private Set<Mod> mods;
+    private Hour hour;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -42,6 +45,7 @@ public class PersonBuilder {
         tags = new HashSet<>();
         freeTime = FreeTime.EMPTY_FREE_TIME;
         mods = new HashSet<>();
+        hour = new Hour(DEFAULT_HOUR);
     }
 
     /**
@@ -55,6 +59,7 @@ public class PersonBuilder {
         tags = new HashSet<>(personToCopy.getTags());
         freeTime = personToCopy.getFreeTime();
         mods = new HashSet<>(personToCopy.getMods());
+        hour = personToCopy.getHour();
     }
 
     /**
@@ -117,8 +122,15 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Hour} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withHour(String hour) {
+        this.hour = new Hour(hour);
+        return this;
+    }
     public Person build() {
-        return new Person(name, phone, email, telegram, tags, freeTime, mods);
+        return new Person(name, phone, email, telegram, tags, freeTime, mods, hour);
     }
 
 }

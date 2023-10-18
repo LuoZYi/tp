@@ -27,13 +27,14 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final FreeTime freeTime;
     private final Set<Mod> mods = new HashSet<>();
+    private final Hour hour;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Telegram telegram, Set<Tag> tags,
-                  FreeTime freeTime, Set<Mod> mods) {
-        requireAllNonNull(name, phone, email, telegram, tags);
+                  FreeTime freeTime, Set<Mod> mods, Hour hour) {
+        requireAllNonNull(name, phone, email, telegram, tags, hour);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -41,6 +42,7 @@ public class Person {
         this.tags.addAll(tags);
         this.freeTime = freeTime == null ? FreeTime.EMPTY_FREE_TIME : freeTime;
         this.mods.addAll(mods);
+        this.hour = hour;
     }
 
     public Name getName() {
@@ -79,6 +81,10 @@ public class Person {
         return Collections.unmodifiableSet(mods);
     }
 
+    public Hour getHour() {
+        return hour;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -114,13 +120,14 @@ public class Person {
                 && telegram.equals(otherPerson.telegram)
                 && tags.equals(otherPerson.tags)
                 && freeTime.equals(otherPerson.freeTime)
-                && mods.equals(otherPerson.mods);
+                && mods.equals(otherPerson.mods)
+                && hour.equals(otherPerson.hour);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, telegram, tags, mods);
+        return Objects.hash(name, phone, email, telegram, tags, mods, hour);
     }
 
     @Override
@@ -133,6 +140,7 @@ public class Person {
                 .add("tags", tags)
                 .add("free time", freeTime)
                 .add("mods", mods)
+                .add("hours", hour)
                 .toString();
     }
 }

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -32,6 +33,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Mod;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Hour;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -52,7 +54,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_FROM + "FROM "
             + PREFIX_TO + "TO] "
             + "[" + PREFIX_TAG + "TAG] "
-            + "[" + PREFIX_MOD + "MOD]...\n"
+            + "[" + PREFIX_MOD + "MOD]..."
+            + "[" + PREFIX_HOUR + "HOUR\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -111,9 +114,10 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         FreeTime updatedFreeTime = editPersonDescriptor.getFreeTime().orElse(personToEdit.getFreeTime());
         Set<Mod> updatedMods = editPersonDescriptor.getMods().orElse(personToEdit.getMods());
+        Hour updatedHour = editPersonDescriptor.getHour().orElse(personToEdit.getHour());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedTelegram, updatedTags, updatedFreeTime,
-                updatedMods);
+                updatedMods, updatedHour);
     }
 
     @Override
@@ -153,6 +157,7 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private FreeTime freeTime;
         private Set<Mod> mods;
+        private Hour hour;
 
         public EditPersonDescriptor() {
         }
@@ -169,13 +174,14 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setFreeTime(toCopy.freeTime);
             setMods(toCopy.mods);
+            setHour(toCopy.hour);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, telegram, tags, mods, freeTime);
+            return CollectionUtil.isAnyNonNull(name, phone, email, telegram, tags, mods, freeTime, hour);
         }
 
         public void setName(Name name) {
@@ -256,6 +262,14 @@ public class EditCommand extends Command {
             return (mods != null) ? Optional.of(Collections.unmodifiableSet(mods)) : Optional.empty();
         }
 
+        public void setHour(Hour hour) {
+            this.hour = hour;
+        }
+
+        public Optional<Hour> getHour() {
+            return Optional.ofNullable(hour);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -274,7 +288,8 @@ public class EditCommand extends Command {
                     && Objects.equals(telegram, otherEditPersonDescriptor.telegram)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
                     && Objects.equals(freeTime, otherEditPersonDescriptor.freeTime)
-                    && Objects.equals(mods, otherEditPersonDescriptor.mods);
+                    && Objects.equals(mods, otherEditPersonDescriptor.mods)
+                    && Objects.equals(hour, otherEditPersonDescriptor.hour);
         }
 
         @Override
@@ -287,6 +302,7 @@ public class EditCommand extends Command {
                     .add("tags", tags)
                     .add("free time", freeTime)
                     .add("mods", mods)
+                    .add("work hour", hour)
                     .toString();
         }
     }

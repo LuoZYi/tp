@@ -49,6 +49,9 @@ public class Messages {
         person.getTags().forEach(builder::append);
         builder.append("; Mods: ");
         person.getMods().forEach(builder::append);
+        builder.append("; Work Hour: ")
+                .append(person.getHour());
+
         return builder.toString();
     }
 

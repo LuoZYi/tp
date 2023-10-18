@@ -14,6 +14,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Mod;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Hour;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -108,6 +109,10 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    public EditPersonDescriptorBuilder withHour(String hour) {
+        descriptor.setHour(new Hour(hour));
+        return this;
+    }
     public EditPersonDescriptor build() {
         return descriptor;
     }

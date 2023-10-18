@@ -44,6 +44,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label freeTime;
+    @FXML
+    private Label hour;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to
@@ -54,13 +56,14 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        telegram.setText(person.getTelegram().value);
-        email.setText(person.getEmail().value);
+        phone.setText("Phone: " + person.getPhone().value);
+        telegram.setText("Telegram: " + person.getTelegram().value);
+        email.setText("Email: " + person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        freeTime.setText(person.getFreeTime().toString());
+        freeTime.setText("Free Time: " + person.getFreeTime().toString());
+        hour.setText("Work Hour: " + person.getHour().toString());
         person.getMods().stream()
                 .sorted(Comparator.comparing(mod -> mod.tagName))
                 .forEach(mod -> {
@@ -68,5 +71,6 @@ public class PersonCard extends UiPart<Region> {
                     label.setStyle("-fx-background-color: #FF8C00");
                     tags.getChildren().add(label);
                 });
+
     }
 }
