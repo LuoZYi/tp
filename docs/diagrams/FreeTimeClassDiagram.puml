@@ -1,0 +1,19 @@
+@startuml
+skinparam classAttributeIconSize 0
+class FreeTime {
+    + {static} FreeTime EMPTY_FREE_TIME
+    + {static} String MESSAGE_CONSTRAINTS
+    + getDay(day: Integer) : TimeInterval
+    + isValidFreeTime() : boolean
+}
+
+class TimeInterval {
+  - LocalTime From
+  - LocalTime To
+  + getFrom() : String
+  + getTo() : String
+  + isValidInterval() : boolean
+}
+
+FreeTime *-- "5" TimeInterval
+@enduml

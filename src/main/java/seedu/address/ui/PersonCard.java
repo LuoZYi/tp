@@ -60,17 +60,16 @@ public class PersonCard extends UiPart<Region> {
         telegram.setText("Telegram: " + person.getTelegram().value);
         email.setText("Email: " + person.getEmail().value);
         person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(tag -> tag.name))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.name)));
         freeTime.setText("Free Time: " + person.getFreeTime().toString());
         hour.setText("Work Hour: " + person.getHour().toString());
         person.getMods().stream()
-                .sorted(Comparator.comparing(mod -> mod.tagName))
+                .sorted(Comparator.comparing(mod -> mod.name))
                 .forEach(mod -> {
-                    Label label = new Label(mod.tagName);
+                    Label label = new Label(mod.name);
                     label.setStyle("-fx-background-color: #FF8C00");
                     tags.getChildren().add(label);
                 });
-
     }
 }

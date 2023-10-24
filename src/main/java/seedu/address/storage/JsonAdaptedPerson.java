@@ -13,13 +13,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.FreeTime;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Mod;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.Hour;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -156,7 +156,8 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Hour.MESSAGE_CONSTRAINTS);
         }
         final Hour modelHour = new Hour(hour);
-        return new Person(modelName, modelPhone, modelEmail, modelTelegram, modelTags, modelFreeTime, modelMods, modelHour);
+        return new Person(modelName, modelPhone, modelEmail, modelTelegram, modelTags,
+                modelFreeTime, modelMods, modelHour);
     }
 
 }

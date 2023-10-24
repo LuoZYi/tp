@@ -3,13 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUR;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -33,8 +33,8 @@ public class AddCommand extends Command {
             + PREFIX_TELEGRAM + "TELEGRAM "
             + "[" + PREFIX_FROM + "FROM "
             + PREFIX_TO + "TO] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "[" + PREFIX_MOD + "MOD]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_MOD + "MOD]... "
             + PREFIX_HOUR + "HOUR \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "

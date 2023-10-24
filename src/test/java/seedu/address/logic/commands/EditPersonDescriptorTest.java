@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMPTY_HOUR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FROM_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HOUR_SIXTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TELEGRAM_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FROM_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TO_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_HOUR_FIVE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_HOUR_SIXTY;
 
 import org.junit.jupiter.api.Test;
 
@@ -64,7 +64,7 @@ public class EditPersonDescriptorTest {
         assertNotEquals(DESC_AMY, editedAmy);
 
         // different hours -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withHour(VALID_HOUR_FIVE).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withHour(VALID_EMPTY_HOUR).build();
         assertNotEquals(DESC_AMY, editedAmy);
 
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withHour(VALID_HOUR_SIXTY).build();
@@ -82,7 +82,7 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getTags().orElse(null) + ", free time="
                 + editPersonDescriptor.getFreeTime().orElse(null) + ", mods="
                 + editPersonDescriptor.getMods().orElse(null) + ", work hour="
-                + editPersonDescriptor.getHour().orElse(null) +"}";
+                + editPersonDescriptor.getHour().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUR;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -47,6 +47,7 @@ public class CommandTestUtil {
 
     public static final String VALID_MOD_CS1231 = "CS1231";
 
+    public static final String VALID_EMPTY_HOUR = "0";
     public static final String VALID_HOUR_FIVE = "5";
     public static final String VALID_HOUR_SIXTY = "60";
 
@@ -67,6 +68,7 @@ public class CommandTestUtil {
     public static final String MOD_DESC_CS1231 = " " + PREFIX_MOD + VALID_MOD_CS1231;
     public static final String HOUR_DESC_FIVE = " " + PREFIX_HOUR + VALID_HOUR_FIVE;
     public static final String HOUR_DESC_SIXTY = " " + PREFIX_HOUR + VALID_HOUR_SIXTY;
+    public static final String HOUR_DESC_EMPTY = " " + PREFIX_HOUR + VALID_EMPTY_HOUR;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -84,10 +86,11 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withTelegram(VALID_TELEGRAM_AMY).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withTelegram(VALID_TELEGRAM_AMY)
+                .withHour(VALID_HOUR_FIVE).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withTelegram(VALID_TELEGRAM_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withHour(VALID_HOUR_SIXTY).build();
     }
 
     /**

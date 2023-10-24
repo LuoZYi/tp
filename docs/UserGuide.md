@@ -20,13 +20,13 @@ Teaching Assistant Manager (TAManager) is a desktop application for managing tea
 
 4. Open a command terminal, `cd` into the folder where you placed the jar file, and use the `java -jar TAManager.jar` command to run the application.
    A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.
-   ![UI](images/UI.png)
+   ![UI](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. For example, typing `help` and pressing Enter will open the help window.
    Here are some example commands you can try:
 
    - `list`: Lists all teaching assistants.
-   - `add n/Snowball p/87098312 e/snowball@example.com c/Computer Science y/2`: Adds a teaching assistant named Snowball to the list.
+   - `add n/Snowball p/98765432 e/snowball@example.com tele/@snowball from/10:00 to/12:00 t/fulltime m/CS1231S h/10`: Adds a teaching assistant named Snowball to the list.
    - `delete 3`: Deletes the 3rd teaching assistant shown in the current list.
    - `clear`: Deletes all teaching assistants.
    - `exit`: Exits the app.
@@ -75,32 +75,37 @@ Adds a new teaching assistant to the address book.
 
 ![add TA](images/addTA.png)
 
-Format: `add n/NAME p/PHONE e/EMAIL c/COURSE_OF_STUDY y/YEAR [t/TAG]… [m/MODULE_CODE]…`
+Format: `add n/NAME p/PHONE e/EMAIL tele/TELEGRAM [from/FROM to/TO] [t/TAG]... [m/MOD]... h/HOUR`
 
 - `NAME` should be a string.
 - `PHONE` should be an 8-digit integer.
 - `EMAIL` should contain "@".
 - `COURSE_OF_STUDY` should be a string.
 - `YEAR` should be an integer.
+- `FROM` should be a time in "HH:SS" format
+- `TO` should be a time in "HH:SS" format
 - `TAG` should be a alphanumeric string without spaces.
 - `MODULE_CODE` should start with 2-3 alphabets, followed by 4 numbers, and optionally end with an alphabet.
+- `HOUR` should be an integer
 
 Examples:
-- `add n/Snowball p/87098312 e/snowball@example.com c/Computer Science y/2 t/year2 m/CS2103T m/CS2101`
+- `add n/Snowball p/98765432 e/snowball@example.com tele/@snowball from/10:00 to/12:00 t/fulltime m/CS1231S h/10`
 
 When the command succeeds:
 
 ```
-Added person: Snowball; Phone: 87098312; Email: snowball@example.com; Course of study: Computer Science; 
-Year of Study: 2 ; Tags: [year2]; Modules: [CS2103T, CS2101];
+New teaching assistant added: Snowball; Phone: 98765432; Email: snowball@example.com; Telegram: @snowball;
+Free Time: 10:00-12:00; Tags: [fulltime]; Mods: [CS1231S]; Work Hour: 10
 ```
 
 When the command fails:
 
 - Incorrect format (e.g., missing information): `Invalid command format!`
 - Duplicate input (the TA is already in the address book): `This TA has been registered.`
-- Invalid input (e.g. invalid module code): `Mod codes should have 2-3 alphabets, followed by 4 digits,
+- Invalid invalid module code: `Mod codes should have 2-3 alphabets, followed by 4 digits,
 and optionally ending with an alphabet.`
+- Invalid free time: `TA's free time should have a start and end time in HH:mm format`
+- Invalid work hour: `Hour should only be positive integers and should be less than 9999`
 
 ### Removing a Teaching Assistant: `delete`
 
@@ -122,7 +127,7 @@ Examples:
 When the command succeeds:
 
 ```
-Deleted Person: Snowball; Phone: 87098312; Email: snowball@example.com; Course of study: Computer Science; Year of Study: 2;
+Deleted Teaching Assistant: Snowball; Phone: 98765432; Email: snowball@example.com; Telegram: @snowball; Free Time: 10:00-12:00; Tags: [fulltime]; Mods: [CS1231S]; Work Hour: 10
 ```
 
 When the command fails:
@@ -176,16 +181,12 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TAManager home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -199,7 +200,7 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL c/COURSE_OF_STUDY y/YEAR ` <br> e.g., `add n/Snowball p/87098312 e/snowball@example.com c/Computer Science y/2`
+**Add** | `add n/NAME p/PHONE e/EMAIL tele/TELEGRAM [from/FROM to/TO] [t/TAG]... [m/MOD]... h/HOUR` <br> e.g., `add n/Snowball p/98765432 e/snowball@example.com tele/@snowball from/10:00 to/12:00 t/fulltime m/CS1231S h/10`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **List** | `list`

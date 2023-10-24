@@ -89,6 +89,32 @@ public class AddressBookTest {
         assertEquals(expected, addressBook.toString());
     }
 
+    @Test
+    public void equals() {
+        final AddressBook standardAddressBook = new AddressBook();
+
+        // same values -> returns true
+        AddressBook copyAddressBook = new AddressBook();
+        assertEquals(standardAddressBook, copyAddressBook);
+
+        // same object -> returns true
+        assertEquals(standardAddressBook, standardAddressBook);
+
+        // null -> returns false
+        assertFalse(standardAddressBook.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardAddressBook.equals(5));
+
+        // different object -> returns false
+        assertFalse(standardAddressBook.equals(new Object()));
+
+        // different persons -> returns false
+        AddressBook differentAddressBook = new AddressBook();
+        differentAddressBook.addPerson(ALICE);
+        assertFalse(standardAddressBook.equals(differentAddressBook));
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */

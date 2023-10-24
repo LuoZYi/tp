@@ -13,12 +13,12 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.FreeTime;
+import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Mod;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.Hour;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -113,7 +113,7 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return Tag.of(trimmedTag);
     }
 
     /**
@@ -157,7 +157,7 @@ public class ParserUtil {
         if (!Mod.isValidModName(trimmedMod)) {
             throw new ParseException(Mod.MESSAGE_CONSTRAINTS);
         }
-        return new Mod(trimmedMod);
+        return Mod.of(trimmedMod);
     }
 
     /**
@@ -174,10 +174,15 @@ public class ParserUtil {
         return modSet;
     }
 
+    /**
+     * Parses a {@code String hour} into a {@code hour}.
+     *
+     * @throws ParseException if the given {@code hour} is invalid.
+     */
     public static Hour parseHour(String hour) throws ParseException {
         requireNonNull(hour);
         String trimmedHour = hour.trim();
-        if(!Hour.isValidHour(trimmedHour)) {
+        if (!Hour.isValidHour(trimmedHour)) {
             throw new ParseException(Hour.MESSAGE_CONSTRAINTS);
         }
         return new Hour(trimmedHour);

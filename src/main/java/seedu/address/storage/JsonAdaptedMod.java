@@ -24,7 +24,7 @@ public class JsonAdaptedMod {
      * Converts a given {@code Mod} into this class for Jackson use.
      */
     public JsonAdaptedMod(Mod source) {
-        modName = source.tagName;
+        modName = source.name;
     }
 
     @JsonValue
@@ -41,6 +41,6 @@ public class JsonAdaptedMod {
         if (!Mod.isValidModName(modName)) {
             throw new IllegalValueException(Mod.MESSAGE_CONSTRAINTS);
         }
-        return new Mod(modName);
+        return Mod.of(modName);
     }
 }
