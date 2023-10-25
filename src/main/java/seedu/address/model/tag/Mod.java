@@ -40,6 +40,11 @@ public class Mod extends Label {
     }
 
     @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

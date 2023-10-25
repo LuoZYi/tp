@@ -38,6 +38,17 @@ public class TimeInterval {
     }
 
     /**
+     * Returns true if this time interval is in between the given time interval.
+     *
+     * @param intervalToCheckAgainst Time interval to check against.
+     * @return True if this time interval is in between the given time interval.
+     */
+    public boolean isInBetween(TimeInterval intervalToCheckAgainst) {
+        return (this.from.isAfter(intervalToCheckAgainst.from) || this.from.equals(intervalToCheckAgainst.from))
+                && (this.to.isBefore(intervalToCheckAgainst.to) || this.to.equals(intervalToCheckAgainst.to));
+    }
+
+    /**
      * Returns string representation of from time.
      *
      * @return From time in HH:mm format.

@@ -78,6 +78,7 @@ public class FreeTime {
         return this.intervals.get(day);
     }
 
+
     @Override
     public String toString() {
         if (this.equals(FreeTime.EMPTY_FREE_TIME)) {

@@ -1,11 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
+
+import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -19,19 +26,22 @@ public class FindCommand extends Command {
             + "any "
             + "of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: PREFIX KEYWORD [MORE_KEYWORDS]...\n"
+            + "Examples: " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob charlie" + ", "
+            + COMMAND_WORD + " " + PREFIX_MOD + "cs1231s" + ", "
+            + COMMAND_WORD + " " + PREFIX_FROM + "10:00" + " " + PREFIX_TO + "12:00";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final ArrayList<Predicate<Person>> predicateList = new ArrayList<>();
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(ArrayList<Predicate<Person>> predicates) {
+        this.predicateList.addAll(predicates);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        Predicate<Person> combinedPredicate = predicateList.stream().reduce(x -> true, Predicate::and);
+        model.updateFilteredPersonList(combinedPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
@@ -48,13 +58,13 @@ public class FindCommand extends Command {
         }
 
         FindCommand otherFindCommand = (FindCommand) other;
-        return predicate.equals(otherFindCommand.predicate);
+        return predicateList.equals(otherFindCommand.predicateList);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("predicate", predicate)
+                .add("predicate", predicateList)
                 .toString();
     }
 }
