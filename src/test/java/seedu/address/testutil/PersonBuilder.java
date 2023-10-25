@@ -4,8 +4,8 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.availability.FreeTime;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FreeTime;
 import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -81,7 +81,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code mods} into a {@code Set<Mod>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withMods(String ... mods) {
+    public PersonBuilder withMods(String... mods) {
         this.mods = SampleDataUtil.getModSet(mods);
         return this;
     }
@@ -129,6 +129,7 @@ public class PersonBuilder {
         this.hour = new Hour(hour);
         return this;
     }
+
     public Person build() {
         return new Person(name, phone, email, telegram, tags, freeTime, mods, hour);
     }

@@ -16,8 +16,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.availability.FreeTime;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FreeTime;
 import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -30,6 +30,15 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values
+     * in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -62,14 +71,5 @@ public class AddCommandParser implements Parser<AddCommand> {
         Person person = new Person(name, phone, email, telegram, tagList, freeTime, modList, hour);
 
         return new AddCommand(person);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values
-     * in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

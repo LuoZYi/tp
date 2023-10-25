@@ -1,12 +1,18 @@
-package seedu.address.model.person;
+package seedu.address.model.freetime;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.address.model.availability.FreeTime;
+import seedu.address.model.availability.TimeInterval;
 
 
 public class FreeTimeTest {
@@ -25,18 +31,20 @@ public class FreeTimeTest {
     @Test
     public void isValidFreeTime() {
         // null from and to
-        assertThrows(NullPointerException.class, () -> FreeTime.isValidFreeTime(null, null));
+        assertThrows(NullPointerException.class, () -> FreeTime.isValidFreeTime(null));
         LocalTime from = LocalTime.parse("12:20");
         LocalTime to = LocalTime.parse("23:44");
-        LocalTime closeFrom = LocalTime.parse("12:21");
-
-        // invalid free time
-        assertFalse(FreeTime.isValidFreeTime(from, from)); // same from and to
-        assertFalse(FreeTime.isValidFreeTime(to, from)); // to before from
+        ArrayList<TimeInterval> timeIntervals = new ArrayList<>();
+        for (int i = 0; i < FreeTime.NUM_DAYS; i++) {
+            timeIntervals.add(new TimeInterval(from, to));
+        }
 
         // valid free time
-        assertTrue(FreeTime.isValidFreeTime(from, to)); // to after from
-        assertTrue(FreeTime.isValidFreeTime(from, closeFrom)); // very short
+        assertTrue(FreeTime.isValidFreeTime(timeIntervals)); // same from and to
+        timeIntervals.add(new TimeInterval(from, to));
+
+        // more than 5 intervals, invalid
+        assertFalse(FreeTime.isValidFreeTime(timeIntervals)); // to after from
     }
 
     @Test
@@ -47,18 +55,15 @@ public class FreeTimeTest {
         FreeTime freeTime = new FreeTime(from, to);
 
         // same values -> returns true
-        assertTrue(freeTime.equals(new FreeTime(LocalTime.parse("12:20"), LocalTime.parse("23:44"))));
+        assertEquals(freeTime, new FreeTime(LocalTime.parse("12:20"), LocalTime.parse("23:44")));
 
         // same object -> returns true
-        assertTrue(freeTime.equals(freeTime));
+        assertEquals(freeTime, freeTime);
 
         // null -> returns false
-        assertFalse(freeTime.equals(null));
-
-        // different types -> returns false
-        assertFalse(freeTime.equals(5.0f));
+        assertNotEquals(null, freeTime);
 
         // different values -> returns false
-        assertFalse(freeTime.equals(new FreeTime(from, closeFrom)));
+        assertNotEquals(freeTime, new FreeTime(from, closeFrom));
     }
 }

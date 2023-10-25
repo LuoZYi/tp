@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.availability.FreeTime;
 import seedu.address.model.tag.Mod;
 import seedu.address.model.tag.Tag;
 

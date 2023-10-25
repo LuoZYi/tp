@@ -1,20 +1,20 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FREE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TO;
 
+import java.time.DayOfWeek;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.FreeTime;
+import seedu.address.model.availability.FreeTime;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Mod;
 import seedu.address.model.tag.Tag;
@@ -42,14 +42,18 @@ public class PersonUtil {
         sb.append(PREFIX_TELEGRAM + person.getTelegram().value + " ");
 
         if (!person.getFreeTime().equals(FreeTime.EMPTY_FREE_TIME)) {
-            sb.append(PREFIX_FROM + person.getFreeTime().getFrom() + " ");
-            sb.append(PREFIX_TO + person.getFreeTime().getTo() + " ");
+            FreeTime freeTime = person.getFreeTime();
+            sb.append(PREFIX_FREE_TIME);
+            for (int i = 0; i < FreeTime.NUM_DAYS; i++) {
+                sb.append(DayOfWeek.of(i) + ":" + freeTime.getDay(i).toString());
+            }
         }
+
         person.getTags().stream().forEach(
                 s -> sb.append(PREFIX_TAG + s.name + " ")
         );
         person.getMods().stream().forEach(
-            s -> sb.append(PREFIX_MOD + s.name + " ")
+                s -> sb.append(PREFIX_MOD + s.name + " ")
         );
         sb.append(PREFIX_HOUR + person.getHour().value + " ");
         return sb.toString();
@@ -64,8 +68,7 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getTelegram().ifPresent(address -> sb.append(PREFIX_TELEGRAM).append(address.value).append(" "));
-        descriptor.getFreeTime().ifPresent(freeTime -> sb.append(PREFIX_FROM).append(freeTime.getFrom()).append(" ")
-                .append(PREFIX_TO).append(freeTime.getTo()).append(" "));
+        descriptor.getFreeTime().ifPresent(freeTime -> sb.append(PREFIX_FREE_TIME).append(freeTime));
 
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

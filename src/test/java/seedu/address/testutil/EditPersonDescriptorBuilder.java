@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.availability.FreeTime;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.FreeTime;
 import seedu.address.model.person.Hour;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -117,6 +117,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setHour(new Hour(hour));
         return this;
     }
+
     public EditPersonDescriptor build() {
         return descriptor;
     }
